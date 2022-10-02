@@ -4,6 +4,7 @@ from fastapi import Request
 from fastapi import status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from fastapi_instagram_clone.auth import authentication
 from fastapi_instagram_clone.db import models
@@ -59,3 +60,6 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True,
 )
+
+
+app.mount("/files", StaticFiles(directory="files"), name="files")

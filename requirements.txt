@@ -4,6 +4,10 @@
 #
 #    pip-compile --allow-unsafe --extra=dev --generate-hashes pyproject.toml
 #
+aiofiles==22.1.0 \
+    --hash=sha256:1142fa8e80dbae46bb6339573ad4c8c0841358f79c6eb50a493dceca14621bad \
+    --hash=sha256:9107f1ca0b2a5553987a94a3c9959fe5b491fdf731389aa5b7b1bd0733e32de6
+    # via fastapi-instagram-clone (pyproject.toml)
 anyio==3.6.1 \
     --hash=sha256:413adf95f93886e442aea925f3ee43baa5a765a64a0f52c6081894f9992fdd0b \
     --hash=sha256:cb29b9c70620506a9a8f87a309591713446953302d7d995344d0d7c6c0c9a7be

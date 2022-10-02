@@ -56,6 +56,7 @@ readme = "README.md"
 requires-python = ">= 3.10"
 authors = [{ name = "Derek Wan", email = "d.wan@icloud.com" }]
 dependencies = [
+  "aiofiles >= 22.1.0",
   "bcrypt >= 4.0.0",
   "beartype >= 0.11.0",
   "dycw-utilities[fastapi, sqlalchemy] >= 0.2.5",
