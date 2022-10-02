@@ -11,11 +11,19 @@ from pydantic import BaseModel
 router = APIRouter(prefix="/blog", tags=["blog"])
 
 
+class Image(BaseModel):
+    url: str
+    alias: str
+
+
 class BlogModel(BaseModel):
     title: str
     content: str
     nb_comments: int
     published: bool | None
+    tags: list[str] = []
+    metadata: dict[str, str] = {"key1": "val1"}
+    image: Image | None = None
 
 
 @router.post("/new/{id}")
