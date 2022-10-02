@@ -16,7 +16,12 @@ def index() -> dict[str, str]:
     return {"message": "Hello world!"}
 
 
-@app.get("/blog/all", tags=["blog"])
+@app.get(
+    "/blog/all",
+    tags=["blog"],
+    summary="Retrieve all blogs",
+    description="This API call simulates fetching all blogs.",
+)
 @beartype
 def get_all_blogs(
     *, page: int = 1, page_size: int | None = None
@@ -26,9 +31,16 @@ def get_all_blogs(
 
 @app.get("/blog/{id}/comments/{comment_id}", tags=["blog", "comment"])
 @beartype
-def get_blog_comments(
+def get_comment(
     *, id: int, comment_id: int, valid: bool = True, username: str | None = None
 ) -> dict[str, str]:
+    """Simulates retrieving a comment of a blog.
+
+    - **id** mandatory path parameter
+    - **comment_id** mandatory path parameter
+    - **valid** optional query parameter
+    - **username** optional query parameter
+    """
     return {"message": f"{id=}, {comment_id=}, {valid=}, {username=}"}
 
 
