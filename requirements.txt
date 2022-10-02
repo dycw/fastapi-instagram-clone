@@ -29,7 +29,9 @@ bandit==1.7.4 \
 beartype==0.11.0 \
     --hash=sha256:3854b50eaaa98bb89490be57e73c69c777a0f304574e7043ac7da98ac6a735a6 \
     --hash=sha256:d1ed5f97edebe909385190fac95ef9af3daf233eb1a5cd08b88b0d8260708ad7
-    # via fastapi-instagram-clone (pyproject.toml)
+    # via
+    #   dycw-utilities
+    #   fastapi-instagram-clone (pyproject.toml)
 black==22.8.0 \
     --hash=sha256:0a12e4e1353819af41df998b02c6742643cfef58282915f781d0e4dd7a200411 \
     --hash=sha256:0ad827325a3a634bae88ae7747db1a395d5ee02cf05d9aa7a9bd77dfb10e940c \
@@ -232,6 +234,10 @@ distlib==0.3.6 \
     --hash=sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46 \
     --hash=sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e
     # via virtualenv
+dycw-utilities==0.2.5 \
+    --hash=sha256:70f40d14c6285ff7a22d177418342ccf567cb04ad9d79761d537a16bf74e3d68 \
+    --hash=sha256:bd1fd7d14414d012b279fb0ece9290402cf33c8527065b1f2fafdade68910fbf
+    # via fastapi-instagram-clone (pyproject.toml)
 editables==0.3 \
     --hash=sha256:167524e377358ed1f1374e61c268f0d7a4bf7dbd046c656f7b410cde16161b1a \
     --hash=sha256:ee686a8db9f5d91da39849f175ffeef094dd0e9c36d6a59a2e8c7f92a3b80020
