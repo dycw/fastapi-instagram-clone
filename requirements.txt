@@ -252,6 +252,10 @@ dycw-utilities[fastapi,sqlalchemy]==0.2.5 \
     --hash=sha256:70f40d14c6285ff7a22d177418342ccf567cb04ad9d79761d537a16bf74e3d68 \
     --hash=sha256:bd1fd7d14414d012b279fb0ece9290402cf33c8527065b1f2fafdade68910fbf
     # via fastapi-instagram-clone (pyproject.toml)
+ecdsa==0.18.0 \
+    --hash=sha256:190348041559e21b22a1d65cee485282ca11a6f81d503fddb84d5017e9ed1e49 \
+    --hash=sha256:80600258e7ed2f16b9aa1d7c295bd70194109ad5a30fdee0eaeefef1d4c559dd
+    # via python-jose
 editables==0.3 \
     --hash=sha256:167524e377358ed1f1374e61c268f0d7a4bf7dbd046c656f7b410cde16161b1a \
     --hash=sha256:ee686a8db9f5d91da39849f175ffeef094dd0e9c36d6a59a2e8c7f92a3b80020
@@ -527,6 +531,12 @@ py==1.11.0 \
     # via
     #   pytest
     #   pytest-forked
+pyasn1==0.4.8 \
+    --hash=sha256:39c7e2ec30515947ff4e87fb6f456dfc6e84857d34be479c9d4a4ba4bf46aa5d \
+    --hash=sha256:aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba
+    # via
+    #   python-jose
+    #   rsa
 pycodestyle==2.9.1 \
     --hash=sha256:2c9607871d58c76354b697b42f5d57e1ada7d261c261efac224b664affdc5785 \
     --hash=sha256:d1735fc58b418fd7c5f658d28d943854f8a849b01a5d0a1e6f3f3fdd0166804b
@@ -611,6 +621,10 @@ pytest-xdist==2.5.0 \
     --hash=sha256:4580deca3ff04ddb2ac53eba39d76cb5dd5edeac050cb6fbc768b0dd712b4edf \
     --hash=sha256:6fe5c74fec98906deb8f2d2b616b5c782022744978e7bd4695d39c8f42d0ce65
     # via fastapi-instagram-clone (pyproject.toml)
+python-jose==3.3.0 \
+    --hash=sha256:55779b5e6ad599c6336191246e95eb2293a9ddebd555f796a65f838f07e5d78a \
+    --hash=sha256:9b1376b023f8b298536eedd47ae1089bcdb848f1535ab30555cd92002d78923a
+    # via fastapi-instagram-clone (pyproject.toml)
 python-multipart==0.0.5 \
     --hash=sha256:f7bb5f611fc600d15fa47b3974c8aa16e93724513b49b5f95c81e6624c83fa43
     # via fastapi-instagram-clone (pyproject.toml)
@@ -664,6 +678,10 @@ rich==12.5.1 \
     --hash=sha256:2eb4e6894cde1e017976d2975ac210ef515d7548bc595ba20e195fb9628acdeb \
     --hash=sha256:63a5c5ce3673d3d5fbbf23cd87e11ab84b6b451436f1b7f19ec54b6bc36ed7ca
     # via hatch
+rsa==4.9 \
+    --hash=sha256:90260d9058e514786967344d0ef75fa8727eed8a7d2e43ce9f4bcf1b536174f7 \
+    --hash=sha256:e38464a49c6c85d7f1351b0126661487a7e0a14a50f1675ec50eb34d4f20ef21
+    # via python-jose
 secretstorage==3.3.3 \
     --hash=sha256:2403533ef369eca6d2ba81718576c5e0f564d5cca1b58f73a8b23e7d4eeebd77 \
     --hash=sha256:f356e6628222568e3af06f2eba8df495efa13b3b63081dafd4f7d9a7b7bc9f99
@@ -675,7 +693,9 @@ shellingham==1.5.0 \
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
-    # via python-multipart
+    # via
+    #   ecdsa
+    #   python-multipart
 smmap==5.0.0 \
     --hash=sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94 \
     --hash=sha256:c840e62059cd3be204b0c9c9f74be2c09d5648eddd4580d9314c3ecde0b30936

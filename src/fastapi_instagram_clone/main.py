@@ -5,6 +5,7 @@ from fastapi import status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from fastapi_instagram_clone.auth import authentication
 from fastapi_instagram_clone.db import models
 from fastapi_instagram_clone.db.database import ENGINE
 from fastapi_instagram_clone.db.database import Base
@@ -18,6 +19,7 @@ from fastapi_instagram_clone.router import user
 
 app = FastAPI()
 app.include_router(article.router)
+app.include_router(authentication.router)
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)
 app.include_router(product.router)
