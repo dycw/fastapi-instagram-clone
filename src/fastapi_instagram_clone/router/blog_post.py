@@ -1,3 +1,5 @@
+from typing import Any
+
 from beartype import beartype
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -13,7 +15,9 @@ class BlogModel(BaseModel):
     published: bool | None
 
 
-@router.post("/new")
+@router.post("/new/{id}")
 @beartype
-def create_blog(*, blog: BlogModel) -> dict[str, BlogModel]:
-    return {"data": blog}
+def create_blog(
+    *, blog: BlogModel, id: int, version: int = 1
+) -> dict[str, Any]:
+    return {"id": id, "data": blog, "version": version}
