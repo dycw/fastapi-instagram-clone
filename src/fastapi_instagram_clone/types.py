@@ -1,6 +1,6 @@
-from contextlib import AbstractContextManager
+from collections.abc import Iterator
 
 from sqlalchemy.orm import Session
 
 
-YieldSession = AbstractContextManager[Session]
+YieldSession = Iterator[Session]
