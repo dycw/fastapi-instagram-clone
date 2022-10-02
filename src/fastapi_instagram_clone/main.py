@@ -21,6 +21,7 @@ def index() -> dict[str, str]:
     tags=["blog"],
     summary="Retrieve all blogs",
     description="This API call simulates fetching all blogs.",
+    response_description="The list of available blogs",
 )
 @beartype
 def get_all_blogs(
