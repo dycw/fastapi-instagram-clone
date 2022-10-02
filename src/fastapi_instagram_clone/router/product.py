@@ -1,5 +1,6 @@
 from beartype import beartype
 from fastapi import APIRouter
+from fastapi import Header
 from fastapi import Response
 from fastapi import status
 from fastapi.responses import HTMLResponse
@@ -17,6 +18,16 @@ products = ["watch", "camera", "phone"]
 def get_all_products() -> Response:
     data = " ".join(products)
     return Response(content=data, media_type="text/plain")
+
+
+@router.get("/withheader")
+@beartype
+def get_products(
+    *, response: Response, custom_header: list[str] | None = Header(None)
+) -> list[str]:
+    if custom_header is not None:
+        response.headers["custom_response_header"] = ", ".join(custom_header)
+    return products
 
 
 @router.get(
