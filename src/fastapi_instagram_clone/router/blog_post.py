@@ -39,10 +39,12 @@ def create_comment(
         deprecated=True,
     ),
     content: str = Body(..., min_length=10, max_length=50, regex=r"^[a-z\s]*$"),
+    v: list[str] | None = Query(["1.0", "1.1", "1.2"]),
 ) -> dict[str, Any]:
     return {
         "blog": blog,
         "id": id,
         "comment_id": comment_id,
         "content": content,
+        "version": v,
     }
