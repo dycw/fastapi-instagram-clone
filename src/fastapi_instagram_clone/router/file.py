@@ -6,6 +6,7 @@ from beartype import beartype
 from fastapi import APIRouter
 from fastapi import File
 from fastapi import UploadFile
+from fastapi.responses import FileResponse
 
 
 router = APIRouter(prefix="/file", tags=["file"])
@@ -28,3 +29,9 @@ def get_uploadfile(*, uploadfile: UploadFile = File(...)) -> dict[str, str]:
     with open(path, mode="wb") as buffer:
         copyfileobj(uploadfile.file, buffer)
     return {"filename": filename, "type": uploadfile.content_type}
+
+
+@router.get("/download/{name}", response_class=FileResponse)
+@beartype
+def download_file(*, name: str) -> Path:
+    return Path("files", name)
