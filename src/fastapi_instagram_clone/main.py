@@ -31,9 +31,16 @@ def get_all_blogs(
 
 @app.get("/blog/{id}/comments/{comment_id}", tags=["blog", "comment"])
 @beartype
-def get_blog_comments(
+def get_comment(
     *, id: int, comment_id: int, valid: bool = True, username: str | None = None
 ) -> dict[str, str]:
+    """Simulates retrieving a comment of a blog.
+
+    - **id** mandatory path parameter
+    - **comment_id** mandatory path parameter
+    - **valid** optional query parameter
+    - **username** optional query parameter
+    """
     return {"message": f"{id=}, {comment_id=}, {valid=}, {username=}"}
 
 
