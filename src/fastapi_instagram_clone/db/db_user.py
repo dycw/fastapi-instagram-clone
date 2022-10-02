@@ -1,7 +1,12 @@
 from typing import Literal
 
 from beartype import beartype
+from sqlalchemy.exc import MultipleResultsFound
+from sqlalchemy.exc import NoResultFound
 
+from fastapi_instagram_clone.db.common import (
+    handle_no_result_or_multiple_results,
+)
 from fastapi_instagram_clone.db.hash import Hash
 from fastapi_instagram_clone.db.models import DbUser
 from fastapi_instagram_clone.db.schemas import UserBase
@@ -31,7 +36,10 @@ def get_all_users(yield_sess: YieldSession, /) -> list[DbUser]:
 @beartype
 def get_user(yield_sess: YieldSession, id: int, /) -> DbUser:
     sess = next(yield_sess)
-    return sess.query(DbUser).where(DbUser.id == id).one()
+    try:
+        return sess.query(DbUser).where(DbUser.id == id).one()
+    except (NoResultFound, MultipleResultsFound) as error:
+        return handle_no_result_or_multiple_results(error, "user", id)
 
 
 @beartype
@@ -39,7 +47,10 @@ def update_user(
     yield_sess: YieldSession, id: int, request: UserBase, /
 ) -> Literal["ok"]:
     sess = next(yield_sess)
-    user = sess.query(DbUser).where(DbUser.id == id).one()
+    try:
+        user = sess.query(DbUser).where(DbUser.id == id).one()
+    except (NoResultFound, MultipleResultsFound) as error:
+        return handle_no_result_or_multiple_results(error, "user", id)
     _ = user.update(
         {
             DbUser.username: request.username,
@@ -54,7 +65,10 @@ def update_user(
 @beartype
 def delete_user(yield_sess: YieldSession, id: int, /) -> Literal["ok"]:
     sess = next(yield_sess)
-    user = sess.query(DbUser).where(DbUser.id == id).one()
+    try:
+        user = sess.query(DbUser).where(DbUser.id == id).one()
+    except (NoResultFound, MultipleResultsFound) as error:
+        return handle_no_result_or_multiple_results(error, "user", id)
     sess.delete(user)
     sess.commit()
     return "ok"
