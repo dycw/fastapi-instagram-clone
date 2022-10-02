@@ -2,7 +2,7 @@ from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Depends
 
-from fastapi_instagram_clone.auth.oauth2 import oauth2_schema
+from fastapi_instagram_clone.auth.oauth2 import oauth2_scheme
 from fastapi_instagram_clone.db import db_article
 from fastapi_instagram_clone.db.database import yield_sess
 from fastapi_instagram_clone.db.models import DbArticle
@@ -28,7 +28,7 @@ def get_article(
     *,
     yield_sess: YieldSession = Depends(yield_sess),
     id: int,
-    token: str = Depends(oauth2_schema),
+    token: str = Depends(oauth2_scheme),
 ) -> DbArticle:
     _ = token
     return db_article.get_article(yield_sess, id)
