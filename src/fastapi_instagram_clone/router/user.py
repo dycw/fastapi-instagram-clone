@@ -1,4 +1,4 @@
-from collections.abc import Generator
+from contextlib import AbstractContextManager
 
 from beartype import beartype
 from fastapi import APIRouter
@@ -18,6 +18,8 @@ router = APIRouter(prefix="/user", tags=["user"])
 @router.post("/", response_model=UserDisplay)
 @beartype
 def create_user_endpoint(
-    *, request: UserBase, db: Generator[Session, None, None] = Depends(get_db)
+    *,
+    request: UserBase,
+    yield_session: AbstractContextManager[Session] = Depends(get_db),
 ) -> DbUser:
-    return create_user(db, request)
+    return create_user(request, yield_session)
