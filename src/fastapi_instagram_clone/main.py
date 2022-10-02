@@ -16,7 +16,12 @@ def index() -> dict[str, str]:
     return {"message": "Hello world!"}
 
 
-@app.get("/blog/all", tags=["blog"])
+@app.get(
+    "/blog/all",
+    tags=["blog"],
+    summary="Retrieve all blogs",
+    description="This API call simulates fetching all blogs.",
+)
 @beartype
 def get_all_blogs(
     *, page: int = 1, page_size: int | None = None
