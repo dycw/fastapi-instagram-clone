@@ -2,6 +2,7 @@ from typing import Any
 
 from beartype import beartype
 from fastapi import APIRouter
+from fastapi import Query
 from pydantic import BaseModel
 
 
@@ -20,4 +21,21 @@ class BlogModel(BaseModel):
 def create_blog(
     *, blog: BlogModel, id: int, version: int = 1
 ) -> dict[str, Any]:
-    return {"id": id, "data": blog, "version": version}
+    return {"data": blog, "id": id, "version": version}
+
+
+@router.post("/new/{id}/comment")
+@beartype
+def create_comment(
+    *,
+    blog: BlogModel,
+    id: int,
+    comment_id: int = Query(
+        None,
+        title="ID of the comment",
+        description="Some description for comment_id",
+        alias="commentId",
+        deprecated=True,
+    ),
+) -> dict[str, Any]:
+    return {"blog": blog, "id": id, "comment_id": comment_id}
