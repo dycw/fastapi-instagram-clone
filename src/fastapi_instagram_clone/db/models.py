@@ -1,3 +1,5 @@
+from typing import cast
+
 from sqlalchemy import Boolean
 from sqlalchemy import Column
 from sqlalchemy import ForeignKey
@@ -11,19 +13,19 @@ from fastapi_instagram_clone.db.database import Base
 class DbUser(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String)
-    email = Column(String)
-    password = Column(String)
+    id = cast(int, Column(Integer, primary_key=True, index=True))
+    username = cast(str, Column(String))
+    email = cast(str, Column(String))
+    password = cast(str, Column(String))
     items = relationship("DbArticle", back_populates="user")
 
 
 class DbArticle(Base):
     __tablename__ = "articles"
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    content = Column(String)
-    published = Column(Boolean)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    id = cast(int, Column(Integer, primary_key=True, index=True))
+    title = cast(str, Column(String))
+    content = cast(str, Column(String))
+    published = cast(bool, Column(Boolean))
+    user_id = cast(int, Column(Integer, ForeignKey("users.id")))
     user = relationship("DbUser", back_populates="items")

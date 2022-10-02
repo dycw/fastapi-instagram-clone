@@ -2,7 +2,6 @@ from collections.abc import Iterator
 from typing import Any
 from typing import cast
 
-from beartype import beartype
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import declarative_base
@@ -17,8 +16,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
 Base = cast(Any, declarative_base())
 
 
-@beartype
-def yield_sess() -> Iterator[Session]:
+def session() -> Iterator[Session]:  # cannot @beartype
     session = SessionLocal()
     try:
         yield session

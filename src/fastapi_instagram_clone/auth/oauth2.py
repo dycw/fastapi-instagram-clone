@@ -3,8 +3,18 @@ from typing import Any
 from typing import cast
 
 from beartype import beartype
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import status
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
+from jose import JWTError
+from jose.jwt import decode
+from jose.jwt import encode
+from sqlalchemy.orm import Session
+
+from fastapi_instagram_clone.db.database import session
+from fastapi_instagram_clone.db.db_user import get_user_by_username
+from fastapi_instagram_clone.db.models import DbUser
 
 
 token_url = "token"  # noqa: S105
@@ -26,4 +36,25 @@ def create_access_token(
     to_encode = data.copy()
     expire = dt.datetime.utcnow() + expires_delta
     to_encode.update({"exp": cast(Any, expire)})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+@beartype
+def get_current_user(
+    *, token: str = Depends(oauth2_scheme), session: Session = Depends(session)
+) -> DbUser:
+    credentials_exception = HTTPException(
+        status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = decode(token, SECRET_KEY, algorithms=ALGORITHM)
+        if (username := payload.get("sub")) is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    try:
+        return get_user_by_username(session, username)
+    except HTTPException:
+        raise credentials_exception

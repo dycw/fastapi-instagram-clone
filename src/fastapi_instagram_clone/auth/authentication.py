@@ -1,18 +1,18 @@
+from typing import Any
+
 from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.exc import MultipleResultsFound
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.orm import Session
 
 from fastapi_instagram_clone.auth.oauth2 import create_access_token
 from fastapi_instagram_clone.auth.oauth2 import token_url
-from fastapi_instagram_clone.db.database import yield_sess
+from fastapi_instagram_clone.db.database import session
+from fastapi_instagram_clone.db.db_user import get_user_by_username
 from fastapi_instagram_clone.db.hash import Hash
-from fastapi_instagram_clone.db.models import DbUser
-from fastapi_instagram_clone.types import YieldSession
 
 
 router = APIRouter(tags=["authentication"])
@@ -23,13 +23,12 @@ router = APIRouter(tags=["authentication"])
 def get_token(
     *,
     request: OAuth2PasswordRequestForm = Depends(),
-    yield_sess: YieldSession = Depends(yield_sess),
-) -> dict[str, str]:
-    sess = next(yield_sess)
+    session: Session = Depends(session),
+) -> dict[str, Any]:
     username = request.username
     try:
-        user = sess.query(DbUser).where(DbUser.username == username).one()
-    except (NoResultFound, MultipleResultsFound):
+        user = get_user_by_username(session, username)
+    except HTTPException:
         raise HTTPException(
             status.HTTP_404_NOT_FOUND, detail="Invalid credentials"
         )
