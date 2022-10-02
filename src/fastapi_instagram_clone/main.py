@@ -2,6 +2,7 @@ from beartype import beartype
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi import status
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from fastapi_instagram_clone.db import models
@@ -42,3 +43,12 @@ def store_exception_handler(
 _ = models  # for the models
 with ENGINE.begin() as conn:
     Base.metadata.create_all(conn)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
