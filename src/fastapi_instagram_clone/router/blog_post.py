@@ -59,3 +59,8 @@ def create_comment(
         "version": v,
         "comment_id": comment_id,
     }
+
+
+@beartype
+def required_functionality() -> dict[str, str]:
+    return {"message": "Learning FastAPI is important"}
