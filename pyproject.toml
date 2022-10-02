@@ -57,8 +57,7 @@ requires-python = ">= 3.10"
 authors = [{ name = "Derek Wan", email = "d.wan@icloud.com" }]
 dependencies = [
   "beartype >= 0.11.0",
-  "dycw-utilities >= 0.2.5",
-  "fastapi >= 0.85.0",
+  "dycw-utilities[fastapi, sqlalchemy] >= 0.2.5",
   "uvicorn >= 0.18.3"
 ]
 
