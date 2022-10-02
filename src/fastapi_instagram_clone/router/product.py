@@ -3,6 +3,7 @@ from typing import Any
 from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Cookie
+from fastapi import Form
 from fastapi import Header
 from fastapi import Response
 from fastapi import status
@@ -14,6 +15,12 @@ router = APIRouter(prefix="/product", tags=["product"])
 
 
 products = ["watch", "camera", "phone"]
+
+
+@router.post("/new")
+def create_product(*, name: str = Form(...)) -> list[str]:
+    products.append(name)
+    return products
 
 
 @router.get("/all")
