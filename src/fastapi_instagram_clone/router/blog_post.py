@@ -2,6 +2,7 @@ from typing import Any
 
 from beartype import beartype
 from fastapi import APIRouter
+from fastapi import Body
 from fastapi import Query
 from pydantic import BaseModel
 
@@ -37,5 +38,11 @@ def create_comment(
         alias="commentId",
         deprecated=True,
     ),
+    content: str = Body(..., min_length=10, max_length=50, regex=r"^[a-z\s]*$"),
 ) -> dict[str, Any]:
-    return {"blog": blog, "id": id, "comment_id": comment_id}
+    return {
+        "blog": blog,
+        "id": id,
+        "comment_id": comment_id,
+        "content": content,
+    }
