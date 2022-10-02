@@ -16,8 +16,18 @@ def index() -> dict[str, str]:
 
 @app.get("/blog/all")
 @beartype
-def get_all_blogs() -> dict[str, str]:
-    return {"message": "All blogs provided"}
+def get_all_blogs(
+    *, page: int = 1, page_size: int | None = None
+) -> dict[str, str]:
+    return {"message": f"All {page_size} blogs on page {page}"}
+
+
+@app.get("/blog/{id}/comments/{comment_id}")
+@beartype
+def get_blog_comments(
+    *, id: int, comment_id: int, valid: bool = True, username: str | None = None
+) -> dict[str, str]:
+    return {"message": f"{id=}, {comment_id=}, {valid=}, {username=}"}
 
 
 class BlogType(StrEnum):
