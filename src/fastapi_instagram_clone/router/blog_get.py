@@ -1,10 +1,14 @@
 from enum import auto
+from typing import Any
 
 from beartype import beartype
 from fastapi import APIRouter
+from fastapi import Depends
 from fastapi import Response
 from fastapi import status
 from utilities.enum import StrEnum
+
+from fastapi_instagram_clone.router.blog_post import required_functionality
 
 
 router = APIRouter(prefix="/blog", tags=["blog"])
@@ -17,10 +21,16 @@ router = APIRouter(prefix="/blog", tags=["blog"])
     response_description="The list of available blogs",
 )
 @beartype
-def get_all_blogs(
-    *, page: int = 1, page_size: int | None = None
-) -> dict[str, str]:
-    return {"message": f"All {page_size} blogs on page {page}"}
+def get_blogs(
+    *,
+    page: int = 1,
+    page_size: int | None = None,
+    req_parameter: dict[str, str] = Depends(required_functionality),
+) -> dict[str, Any]:
+    return {
+        "message": f"All {page_size} blogs on page {page}",
+        "req": req_parameter,
+    }
 
 
 @router.get("/{id}/comments/{comment_id}", tags=["comment"])
