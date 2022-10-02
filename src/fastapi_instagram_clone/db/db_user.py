@@ -1,3 +1,5 @@
+from typing import Literal
+
 from beartype import beartype
 
 from fastapi_instagram_clone.db.hash import Hash
@@ -29,7 +31,37 @@ def get_all_users(yield_sess: YieldSession, /) -> list[DbUser]:
 @beartype
 def get_user(yield_sess: YieldSession, id: int, /) -> DbUser:
     with yield_sess as sess:
-        res = sess.query(DbUser).where(DbUser.id == id).first()
-    if res is None:
+        user = sess.query(DbUser).where(DbUser.id == id).first()
+    if user is None:
         raise ValueError
-    return res
+    return user
+
+
+@beartype
+def update_user(
+    yield_sess: YieldSession, id: int, request: UserBase, /
+) -> Literal["ok"]:
+    with yield_sess as sess:
+        user = sess.query(DbUser).where(DbUser.id == id)
+        if user is None:
+            raise ValueError
+        _ = user.update(
+            {
+                DbUser.username: request.username,
+                DbUser.email: request.email,
+                DbUser.password: Hash().bcrypt(request.password),
+            }
+        )
+        sess.commit()
+    return "ok"
+
+
+@beartype
+def delete_user(yield_sess: YieldSession, id: int, /) -> Literal["ok"]:
+    with yield_sess as sess:
+        user = sess.query(DbUser).where(DbUser.id == id).first()
+        if user is None:
+            raise ValueError
+        sess.delete(user)
+        sess.commit()
+    return "ok"

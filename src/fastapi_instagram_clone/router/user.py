@@ -1,3 +1,5 @@
+from typing import Literal
+
 from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Depends
@@ -35,3 +37,22 @@ def get_user(
     *, yield_sess: YieldSession = Depends(yield_sess), id: int
 ) -> DbUser:
     return db_user.get_user(yield_sess, id)
+
+
+@router.post("/{id}/update")
+@beartype
+def update_user(
+    *,
+    yield_sess: YieldSession = Depends(yield_sess),
+    id: int,
+    request: UserBase,
+) -> Literal["ok"]:
+    return db_user.update_user(yield_sess, id, request)
+
+
+@router.get("/{id}/delete")
+@beartype
+def delete_user(
+    *, yield_sess: YieldSession = Depends(yield_sess), id: int
+) -> Literal["ok"]:
+    return db_user.delete_user(yield_sess, id)
