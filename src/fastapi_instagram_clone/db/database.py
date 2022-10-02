@@ -1,5 +1,4 @@
 from collections.abc import Iterator
-from contextlib import contextmanager
 from typing import Any
 from typing import cast
 
@@ -18,7 +17,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=ENGINE)
 Base = cast(Any, declarative_base())
 
 
-@contextmanager
 @beartype
 def yield_sess() -> Iterator[Session]:
     session = SessionLocal()
