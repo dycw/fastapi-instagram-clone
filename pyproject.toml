@@ -55,7 +55,7 @@ dynamic = ["version"]
 readme = "README.md"
 requires-python = ">= 3.10"
 authors = [{ name = "Derek Wan", email = "d.wan@icloud.com" }]
-dependencies = []
+dependencies = ["fastapi >= 0.85.0", "uvicorn >= 0.18.3"]
 
 [project.optional-dependencies]
 dev = [
@@ -108,7 +108,7 @@ reportUnusedCallResult = "error"
 addopts = [
   "-rsxX",
   "--color=auto",
-  "--cov=fastapi_instagram_clone",
+  "--cov=dycw_template",
   "--cov-config=pyproject.toml",
   "--cov-report=html",
   "--strict-markers",
