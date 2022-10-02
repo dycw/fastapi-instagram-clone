@@ -16,7 +16,7 @@ def index() -> dict[str, str]:
     return {"message": "Hello world!"}
 
 
-@app.get("/blog/all")
+@app.get("/blog/all", tags=["blog"])
 @beartype
 def get_all_blogs(
     *, page: int = 1, page_size: int | None = None
@@ -24,7 +24,7 @@ def get_all_blogs(
     return {"message": f"All {page_size} blogs on page {page}"}
 
 
-@app.get("/blog/{id}/comments/{comment_id}")
+@app.get("/blog/{id}/comments/{comment_id}", tags=["blog", "comment"])
 @beartype
 def get_blog_comments(
     *, id: int, comment_id: int, valid: bool = True, username: str | None = None
@@ -38,13 +38,13 @@ class BlogType(StrEnum):
     howto = auto()
 
 
-@app.get("/blog/type/{type}")
+@app.get("/blog/type/{type}", tags=["blog"])
 @beartype
 def get_blog_type(*, type: BlogType) -> dict[str, str]:
     return {"message": f"Blog with {type=}"}
 
 
-@app.get("/blog/{id}")
+@app.get("/blog/{id}", tags=["blog"])
 @beartype
 def get_blog(*, id: int, response: Response) -> dict[str, str]:
     if id > 5:
