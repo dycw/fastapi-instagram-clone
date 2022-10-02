@@ -1,9 +1,11 @@
+from beartype import beartype
 from fastapi import FastAPI
 
 
 app = FastAPI()
 
 
-@app.get("/")
-def index() -> str:
-    return "Hello world"
+@app.get("/hello")
+@beartype
+def index() -> dict[str, str]:
+    return {"message": "Hello world!"}

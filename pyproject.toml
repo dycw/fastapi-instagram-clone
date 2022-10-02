@@ -55,7 +55,7 @@ dynamic = ["version"]
 readme = "README.md"
 requires-python = ">= 3.10"
 authors = [{ name = "Derek Wan", email = "d.wan@icloud.com" }]
-dependencies = ["fastapi >= 0.85.0", "uvicorn >= 0.18.3"]
+dependencies = ["beartype >= 0.11.0", "fastapi >= 0.85.0", "uvicorn >= 0.18.3"]
 
 [project.optional-dependencies]
 dev = [
@@ -92,6 +92,7 @@ typeCheckingMode = "strict"
 reportMissingTypeStubs = false
 reportMissingTypeArgument = false
 reportPrivateUsage = false
+reportPrivateImportUsage = false
 reportUnknownArgumentType = false
 reportUnknownMemberType = false
 reportUnknownParameterType = false
