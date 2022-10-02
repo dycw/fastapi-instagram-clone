@@ -6,11 +6,13 @@ from fastapi_instagram_clone.db.database import ENGINE
 from fastapi_instagram_clone.db.database import Base
 from fastapi_instagram_clone.router import blog_get
 from fastapi_instagram_clone.router import blog_post
+from fastapi_instagram_clone.router import user
 
 
 app = FastAPI()
 app.include_router(blog_get.router)
 app.include_router(blog_post.router)
+app.include_router(user.router)
 
 
 @app.get("/hello")
