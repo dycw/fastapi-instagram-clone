@@ -2,6 +2,8 @@ from enum import auto
 
 from beartype import beartype
 from fastapi import FastAPI
+from fastapi import Response
+from fastapi import status
 from utilities.enum import StrEnum
 
 
@@ -44,5 +46,10 @@ def get_blog_type(*, type: BlogType) -> dict[str, str]:
 
 @app.get("/blog/{id}")
 @beartype
-def get_blog(*, id: int) -> dict[str, str]:
-    return {"message": f"Blog with {id=}"}
+def get_blog(*, id: int, response: Response) -> dict[str, str]:
+    if id > 5:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"error": f"Blog with {id=} not found"}
+    else:
+        response.status_code = status.HTTP_200_OK
+        return {"message": f"Blog with {id=}"}
