@@ -1,5 +1,8 @@
+from typing import Any
+
 from beartype import beartype
 from fastapi import APIRouter
+from fastapi import Cookie
 from fastapi import Header
 from fastapi import Response
 from fastapi import status
@@ -17,17 +20,26 @@ products = ["watch", "camera", "phone"]
 @beartype
 def get_all_products() -> Response:
     data = " ".join(products)
-    return Response(content=data, media_type="text/plain")
+    response = Response(content=data, media_type="text/plain")
+    response.set_cookie("test_cookie", value="test_cookie_value")
+    return response
 
 
 @router.get("/withheader")
 @beartype
 def get_products(
-    *, response: Response, custom_header: list[str] | None = Header(None)
-) -> list[str]:
+    *,
+    response: Response,
+    custom_header: list[str] | None = Header(None),
+    test_cookie: str | None = Cookie(None),
+) -> dict[str, Any]:
     if custom_header is not None:
         response.headers["custom_response_header"] = ", ".join(custom_header)
-    return products
+    return {
+        "data": products,
+        "custom_header": custom_header,
+        "my_cookie": test_cookie,
+    }
 
 
 @router.get(
