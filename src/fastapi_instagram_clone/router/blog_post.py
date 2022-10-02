@@ -3,6 +3,7 @@ from typing import Any
 from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Body
+from fastapi import Path
 from fastapi import Query
 from pydantic import BaseModel
 
@@ -25,26 +26,28 @@ def create_blog(
     return {"data": blog, "id": id, "version": version}
 
 
-@router.post("/new/{id}/comment")
+@router.post("/new/{id}/comment/{comment_id}")
 @beartype
 def create_comment(
     *,
     blog: BlogModel,
     id: int,
-    comment_id: int = Query(
+    comment_title: int = Query(
         None,
-        title="ID of the comment",
+        title="Title of the comment",
         description="Some description for comment_id",
-        alias="commentId",
+        alias="commentTitle",
         deprecated=True,
     ),
     content: str = Body(..., min_length=10, max_length=50, regex=r"^[a-z\s]*$"),
     v: list[str] | None = Query(["1.0", "1.1", "1.2"]),
+    comment_id: int = Path(None, gt=5, le=10),
 ) -> dict[str, Any]:
     return {
         "blog": blog,
         "id": id,
-        "comment_id": comment_id,
+        "comment_title": comment_title,
         "content": content,
         "version": v,
+        "comment_id": comment_id,
     }
