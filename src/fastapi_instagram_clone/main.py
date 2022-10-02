@@ -13,17 +13,22 @@ from fastapi_instagram_clone.exceptions import StoryException
 from fastapi_instagram_clone.router import article
 from fastapi_instagram_clone.router import blog_get
 from fastapi_instagram_clone.router import blog_post
+from fastapi_instagram_clone.router import file
 from fastapi_instagram_clone.router import product
 from fastapi_instagram_clone.router import user
 
 
 app = FastAPI()
-app.include_router(article.router)
-app.include_router(authentication.router)
-app.include_router(blog_get.router)
-app.include_router(blog_post.router)
-app.include_router(product.router)
-app.include_router(user.router)
+for router in [
+    article.router,
+    authentication.router,
+    blog_get.router,
+    blog_post.router,
+    file.router,
+    product.router,
+    user.router,
+]:
+    app.include_router(router)
 
 
 @app.get("/hello")
