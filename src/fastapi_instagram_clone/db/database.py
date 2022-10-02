@@ -20,9 +20,9 @@ Base = cast(Any, declarative_base())
 
 @contextmanager
 @beartype
-def yield_session() -> Iterator[Session]:
-    db = SessionLocal()
+def yield_sess() -> Iterator[Session]:
+    session = SessionLocal()
     try:
-        yield db
+        yield session
     finally:
-        db.close()
+        session.close()
