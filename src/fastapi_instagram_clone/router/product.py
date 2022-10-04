@@ -1,4 +1,6 @@
+from asyncio import sleep
 from typing import Any
+from typing import Literal
 from typing import Optional
 from typing import Union
 
@@ -21,7 +23,14 @@ router = APIRouter(prefix="/product", tags=["product"])
 products = ["watch", "camera", "phone"]
 
 
+@beartype
+async def time_consuming_functionality() -> Literal["ok"]:
+    await sleep(5)
+    return "ok"
+
+
 @router.post("/new")
+@beartype
 def create_product(*, name: str = Form(...)) -> list[str]:
     products.append(name)
     return products
@@ -29,8 +38,9 @@ def create_product(*, name: str = Form(...)) -> list[str]:
 
 @router.get("/all")
 @beartype
-def get_all_products() -> Response:
+async def get_all_products() -> Response:
     log(tag="MyAPI", message="Call to get all products")
+    _ = await time_consuming_functionality()
     data = " ".join(products)
     response = Response(content=data, media_type="text/plain")
     response.set_cookie("test_cookie", value="test_cookie_value")
