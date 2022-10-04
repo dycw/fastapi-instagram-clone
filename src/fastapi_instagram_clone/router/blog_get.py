@@ -1,12 +1,13 @@
 from enum import auto
 from typing import Any
+from typing import Optional
 
 from beartype import beartype
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Response
 from fastapi import status
-from utilities.enum import StrEnum
+from strenum import StrEnum
 
 from fastapi_instagram_clone.router.blog_post import required_functionality
 
@@ -24,7 +25,7 @@ router = APIRouter(prefix="/blog", tags=["blog"])
 def get_blogs(
     *,
     page: int = 1,
-    page_size: int | None = None,
+    page_size: Optional[int] = None,
     req_parameter: dict[str, str] = Depends(required_functionality),
 ) -> dict[str, Any]:
     return {
@@ -36,7 +37,11 @@ def get_blogs(
 @router.get("/{id}/comments/{comment_id}", tags=["comment"])
 @beartype
 def get_comment(
-    *, id: int, comment_id: int, valid: bool = True, username: str | None = None
+    *,
+    id: int,
+    comment_id: int,
+    valid: bool = True,
+    username: Optional[str] = None,
 ) -> dict[str, str]:
     """Simulates retrieving a comment of a blog.
 

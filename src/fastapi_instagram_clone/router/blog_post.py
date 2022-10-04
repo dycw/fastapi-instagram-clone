@@ -1,4 +1,5 @@
 from typing import Any
+from typing import Optional
 
 from beartype import beartype
 from fastapi import APIRouter
@@ -20,10 +21,10 @@ class BlogModel(BaseModel):
     title: str
     content: str
     nb_comments: int
-    published: bool | None
+    published: Optional[bool]
     tags: list[str] = []
     metadata: dict[str, str] = {"key1": "val1"}
-    image: Image | None = None
+    image: Optional[Image] = None
 
 
 @router.post("/new/{id}")
@@ -48,7 +49,7 @@ def create_comment(
         deprecated=True,
     ),
     content: str = Body(..., min_length=10, max_length=50, regex=r"^[a-z\s]*$"),
-    v: list[str] | None = Query(["1.0", "1.1", "1.2"]),
+    v: Optional[list[str]] = Query(["1.0", "1.1", "1.2"]),
     comment_id: int = Path(None, gt=5, le=10),
 ) -> dict[str, Any]:
     return {

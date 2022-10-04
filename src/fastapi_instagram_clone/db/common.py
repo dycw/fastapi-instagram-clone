@@ -1,4 +1,5 @@
 from typing import NoReturn
+from typing import Union
 
 from beartype import beartype
 from fastapi import HTTPException
@@ -9,10 +10,10 @@ from sqlalchemy.exc import NoResultFound
 
 @beartype
 def handle_no_result_or_multiple_results(
-    error: NoResultFound | MultipleResultsFound,
+    error: Union[NoResultFound, MultipleResultsFound],
     desc1: str,
     desc2: str,
-    value: int | str,
+    value: Union[int, str],
     /,
 ) -> NoReturn:
     full_desc = f"{desc2}={value}"
