@@ -286,6 +286,8 @@ uvicorn==0.18.3
     # via fastapi-instagram-clone (pyproject.toml)
 virtualenv==20.16.5
     # via hatch
+websockets==10.3
+    # via fastapi-instagram-clone (pyproject.toml)
 wheel==0.37.1
     # via pip-tools
 
