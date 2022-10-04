@@ -12,6 +12,8 @@ from fastapi import status
 from fastapi.responses import HTMLResponse
 from fastapi.responses import PlainTextResponse
 
+from fastapi_instagram_clone.custom_log import log
+
 
 router = APIRouter(prefix="/product", tags=["product"])
 
@@ -28,6 +30,7 @@ def create_product(*, name: str = Form(...)) -> list[str]:
 @router.get("/all")
 @beartype
 def get_all_products() -> Response:
+    log(tag="MyAPI", message="Call to get all products")
     data = " ".join(products)
     response = Response(content=data, media_type="text/plain")
     response.set_cookie("test_cookie", value="test_cookie_value")
