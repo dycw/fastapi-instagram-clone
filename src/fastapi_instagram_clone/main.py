@@ -22,6 +22,7 @@ from fastapi_instagram_clone.exceptions import StoryException
 from fastapi_instagram_clone.router import article
 from fastapi_instagram_clone.router import blog_get
 from fastapi_instagram_clone.router import blog_post
+from fastapi_instagram_clone.router import dependencies
 from fastapi_instagram_clone.router import file
 from fastapi_instagram_clone.router import product
 from fastapi_instagram_clone.router import user
@@ -34,6 +35,7 @@ for router in [
     authentication.router,
     blog_get.router,
     blog_post.router,
+    dependencies.router,
     file.router,
     product.router,
     templates.router,
