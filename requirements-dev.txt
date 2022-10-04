@@ -143,8 +143,12 @@ jeepney==0.8.0
     # via
     #   keyring
     #   secretstorage
+jinja2==3.1.2
+    # via fastapi-instagram-clone (pyproject.toml)
 keyring==23.9.3
     # via hatch
+markupsafe==2.1.1
+    # via jinja2
 mccabe==0.7.0
     # via flake8
 more-itertools==8.14.0
