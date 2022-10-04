@@ -73,6 +73,7 @@ dependencies = [
   "sqlalchemy2-stubs",
   "strenum >= 0.4.8",
   "uvicorn >= 0.18.3",
+  "websockets >= 10.3",
 ]
 
 [project.optional-dependencies]

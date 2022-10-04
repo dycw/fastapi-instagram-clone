@@ -6,12 +6,15 @@ from beartype import beartype
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi import Response
+from fastapi import WebSocket
 from fastapi import status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from fastapi_instagram_clone.auth import authentication
+from fastapi_instagram_clone.client import html
 from fastapi_instagram_clone.db import models
 from fastapi_instagram_clone.db.database import ENGINE
 from fastapi_instagram_clone.db.database import Base
@@ -53,6 +56,26 @@ def store_exception_handler(
     return JSONResponse(
         {"detail": error.name}, status_code=status.HTTP_418_IM_A_TEAPOT
     )
+
+
+@app.get("/")
+@beartype
+async def get() -> HTMLResponse:
+    return HTMLResponse(html)
+
+
+clients: list[WebSocket] = []
+
+
+@app.websocket("/chat")
+@beartype
+async def websocket_endpoint(*, websocket: WebSocket) -> HTMLResponse:
+    await websocket.accept()
+    clients.append(websocket)
+    while True:
+        data = await websocket.receive_text()
+        for client in clients:
+            await client.send_text(data)
 
 
 _ = models  # for the models
