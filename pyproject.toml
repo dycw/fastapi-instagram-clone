@@ -67,6 +67,7 @@ dependencies = [
   "passlib >= 1.7.4",
   "python-jose >= 3.3.0",
   "python-multipart >= 0.0.5",
+  "requests >= 2.28.1",
   "sqlalchemy >= 1.4.41",
   "sqlalchemy2-stubs",
   "strenum >= 0.4.8",
