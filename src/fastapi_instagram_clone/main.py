@@ -17,6 +17,7 @@ from fastapi_instagram_clone.router import blog_post
 from fastapi_instagram_clone.router import file
 from fastapi_instagram_clone.router import product
 from fastapi_instagram_clone.router import user
+from fastapi_instagram_clone.templates import templates
 
 
 app = FastAPI()
@@ -27,6 +28,7 @@ for router in [
     blog_post.router,
     file.router,
     product.router,
+    templates.router,
     user.router,
 ]:
     app.include_router(router)
@@ -63,3 +65,8 @@ app.add_middleware(
 
 
 app.mount("/files", StaticFiles(directory="files"), name="files")
+app.mount(
+    "/templates/static",
+    StaticFiles(directory="templates/static"),
+    name="static",
+)
