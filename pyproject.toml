@@ -2,7 +2,7 @@
 [tool.black]
 line-length = 80
 skip-magic-trailing-comma = true
-target-version = ["py310"]
+target-version = ["py39"]
 
 #### coverage #################################################################
 [tool.coverage.run]
@@ -46,23 +46,30 @@ skip_gitignore = true
 
 #### nitpick ##################################################################
 [tool.nitpick]
-style = "https://github.com/dycw/nitpick/blob/master/nitpick-style.toml"
+style = [
+  "https://raw.githubusercontent.com/dycw/nitpick/master/styles/common.toml",
+  "https://raw.githubusercontent.com/dycw/nitpick/master/styles/3.9.toml",
+  "https://raw.githubusercontent.com/dycw/nitpick/master/styles/pip-compile-no-hashes.toml",
+]
 
 #### project ##################################################################
 [project]
 name = "fastapi-instagram-clone"
 dynamic = ["version"]
 readme = "README.md"
-requires-python = ">= 3.10"
+requires-python = ">= 3.9"
 authors = [{ name = "Derek Wan", email = "d.wan@icloud.com" }]
 dependencies = [
   "aiofiles >= 22.1.0",
   "bcrypt >= 4.0.0",
   "beartype >= 0.11.0",
-  "dycw-utilities[fastapi, sqlalchemy] >= 0.2.5",
+  "fastapi >= 0.85.0",
   "passlib >= 1.7.4",
   "python-jose >= 3.3.0",
   "python-multipart >= 0.0.5",
+  "sqlalchemy >= 1.4.41",
+  "sqlalchemy2-stubs",
+  "strenum >= 0.4.8",
   "uvicorn >= 0.18.3",
 ]
 
@@ -95,7 +102,7 @@ dev = [
 #### pyright ##################################################################
 [tool.pyright]
 include = ["src"]
-pythonVersion = "3.10"
+pythonVersion = "3.9"
 executionEnvironments = [{ root = "src" }]
 typeCheckingMode = "strict"
 reportMissingTypeStubs = false

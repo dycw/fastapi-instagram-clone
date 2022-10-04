@@ -1,3 +1,8 @@
 local:
-  uvicorn --host=localhost --port=8000 --reload --app-dir=src \
-    fastapi_instagram_clone.main:app
+  uvicorn --host=localhost --port=8000 --reload main:app
+
+deta-new:
+  deta new --python --name=fastapi-instagram-clone
+
+deploy:
+  deta deploy

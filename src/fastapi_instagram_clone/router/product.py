@@ -1,4 +1,6 @@
 from typing import Any
+from typing import Optional
+from typing import Union
 
 from beartype import beartype
 from fastapi import APIRouter
@@ -37,8 +39,8 @@ def get_all_products() -> Response:
 def get_products(
     *,
     response: Response,
-    custom_header: list[str] | None = Header(None),
-    test_cookie: str | None = Cookie(None),
+    custom_header: Optional[list[str]] = Header(None),
+    test_cookie: Optional[str] = Cookie(None),
 ) -> dict[str, Any]:
     if custom_header is not None:
         response.headers["custom_response_header"] = ", ".join(custom_header)
@@ -63,7 +65,7 @@ def get_products(
     },
 )
 @beartype
-def get_product(*, id: int) -> PlainTextResponse | HTMLResponse:
+def get_product(*, id: int) -> Union[PlainTextResponse, HTMLResponse]:
     if id >= len(products):
         out = "Product not available"
         return PlainTextResponse(
