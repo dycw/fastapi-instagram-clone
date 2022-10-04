@@ -1,6 +1,11 @@
+from collections.abc import Awaitable
+from collections.abc import Callable
+from time import time
+
 from beartype import beartype
 from fastapi import FastAPI
 from fastapi import Request
+from fastapi import Response
 from fastapi import status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -53,6 +58,18 @@ def store_exception_handler(
 _ = models  # for the models
 with ENGINE.begin() as conn:
     Base.metadata.create_all(conn)
+
+
+@app.middleware("http")  # type: ignore
+@beartype
+async def add_middleware(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+) -> Response:
+    start_time = time()
+    response = await call_next(request)
+    duration = time() - start_time
+    response.headers["duration"] = str(duration)
+    return response
 
 
 app.add_middleware(
