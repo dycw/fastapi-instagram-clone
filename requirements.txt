@@ -34,14 +34,22 @@ jinja2==3.1.2
     # via fastapi-instagram-clone (pyproject.toml)
 markupsafe==2.1.1
     # via jinja2
+packaging==21.3
+    # via pytesseract
 passlib==1.7.4
     # via fastapi-instagram-clone (pyproject.toml)
+pillow==9.2.0
+    # via pytesseract
 pyasn1==0.4.8
     # via
     #   python-jose
     #   rsa
 pydantic==1.10.2
     # via fastapi
+pyparsing==3.0.9
+    # via packaging
+pytesseract==0.3.10
+    # via fastapi-instagram-clone (pyproject.toml)
 python-jose==3.3.0
     # via fastapi-instagram-clone (pyproject.toml)
 python-multipart==0.0.5

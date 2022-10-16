@@ -6,3 +6,8 @@ deta-new:
 
 deploy:
   deta deploy
+
+# OCR
+
+local-ocr:
+  uvicorn --host=localhost --port=8000 --reload main_ocr:app
