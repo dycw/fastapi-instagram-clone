@@ -11,3 +11,8 @@ deploy:
 
 local-ocr:
   uvicorn --host=localhost --port=8000 --reload main_ocr:app
+
+# blog
+
+local-blog:
+  uvicorn --host=localhost --port=8000 --reload --app-dir=src blog.main:app
