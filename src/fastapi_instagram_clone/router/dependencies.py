@@ -5,8 +5,12 @@ from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import Request
 
+from fastapi_instagram_clone.custom_log import log
 
-router = APIRouter(prefix="/dependencies", tags=["dependencies"])
+
+router = APIRouter(
+    prefix="/dependencies", tags=["dependencies"], dependencies=[Depends(log)]
+)
 
 
 @beartype
@@ -36,9 +40,9 @@ def get_items(
     *,
     test: str,
     headers: dict[str, Any] = Depends(convert_headers),
-    separator: str = "--",  # noqa: U100
+    separator: str = "--",
 ) -> dict[str, Any]:
-    _ = test
+    _ = (test, separator)
     return {"items": ["a", "b", "c"], "headers": headers}
 
 
