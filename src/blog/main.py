@@ -1,17 +1,12 @@
-from beartype import beartype
 from fastapi import FastAPI
 
 from blog.database.database import engine
 from blog.database.models import Base
+from blog.routers import post
 
 
 app = FastAPI()
-
-
-@app.get("/")
-@beartype
-def hw() -> str:
-    return "Hello world!"
+app.include_router(post.router)
 
 
 Base.metadata.create_all(engine)
