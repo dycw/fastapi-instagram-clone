@@ -16,3 +16,9 @@ router = APIRouter(prefix="/post", tags=["post"])
 @beartype
 def create(*, db: Session = Depends(get_db), request: PostBase) -> DbPost:
     return db_post.create(db, request)
+
+
+@router.get("/all")
+@beartype
+def posts(*, db: Session = Depends(get_db)) -> list[DbPost]:
+    return db_post.get_all(db)

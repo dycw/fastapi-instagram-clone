@@ -20,3 +20,8 @@ def create(db: Session, request: PostBase, /) -> DbPost:
     db.commit()
     db.refresh(new_post)
     return new_post
+
+
+@beartype
+def get_all(db: Session, /) -> list[DbPost]:
+    return db.query(DbPost).all()
