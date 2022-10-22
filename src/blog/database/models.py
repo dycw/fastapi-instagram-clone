@@ -12,6 +12,6 @@ class DbPost(Base):
     id = Column(Integer, primary_key=True, index=True)
     image_url = Column(String)
     title = Column(String)
-    context = Column(String)
+    content = Column(String)
     creator = Column(String)
     timestamp = Column(DateTime)

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class PostBase(BaseModel):
     image_url: str
     title: str
-    context: str
+    content: str
     creator: str
 
 
@@ -14,7 +14,7 @@ class PostDisplay(BaseModel):
     id: int
     image_url: str
     title: str
-    context: str
+    content: str
     creator: str
     timestamp: dt.datetime
 
